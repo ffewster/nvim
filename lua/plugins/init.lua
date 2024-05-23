@@ -80,6 +80,14 @@ return {
         },
         -- See Commands section for default commands if you want to lazy load on them
     },
-
-
+    -- {
+    --     "jamestthompson3/nvim-remote-containers",
+    --     config = function()
+    --         require("nvim-remote-containers").setup()
+    --     end
+    -- }
+    {
+        'https://codeberg.org/esensar/nvim-dev-container',
+        dependencies = 'nvim-treesitter/nvim-treesitter'
+    }
 }
