@@ -165,7 +165,7 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 -- Diagnostic keymaps
 vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [D]iagnostic message" })
 vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagnostic message" })
-vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
+-- vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
 vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
@@ -300,10 +300,88 @@ require("lazy").setup({
   -- NVIM Tree Plugin
   {
     "nvim-tree/nvim-tree.lua",
-    event = "VimEnter",
-    config = function()
-      print "Loadinging NvimTree"
-      require("nvim-tree").setup()
+    cmd = { "NvimTreeToggle", "NvimTreeFocus" },
+    opts = function()
+      return {
+        filters = {
+          dotfiles = false,
+        },
+        disable_netrw = true,
+        hijack_netrw = true,
+        hijack_cursor = true,
+        hijack_unnamed_buffer_when_opening = false,
+        sync_root_with_cwd = true,
+        update_focused_file = {
+          enable = true,
+          update_root = false,
+        },
+        view = {
+          adaptive_size = false,
+          side = "left",
+          width = 30,
+          preserve_window_proportions = true,
+        },
+        git = {
+          enable = true,
+          ignore = true,
+        },
+        filesystem_watchers = {
+          enable = true,
+        },
+        actions = {
+          open_file = {
+            resize_window = true,
+          },
+        },
+        renderer = {
+          root_folder_label = false,
+          highlight_git = true,
+          highlight_opened_files = "none",
+
+          indent_markers = {
+            enable = true,
+          },
+
+          icons = {
+            show = {
+              file = true,
+              folder = true,
+              folder_arrow = true,
+              git = true,
+            },
+            glyphs = {
+              default = "󰈚",
+              symlink = "",
+              folder = {
+                default = "",
+                empty = "",
+                empty_open = "",
+                open = "",
+                symlink = "",
+                symlink_open = "",
+                arrow_open = "",
+                arrow_closed = "",
+              },
+              git = {
+                unstaged = "✗",
+                staged = "✓",
+                unmerged = "",
+                renamed = "➜",
+                untracked = "★",
+                deleted = "",
+                ignored = "◌",
+              },
+            },
+          },
+        },
+      }
+    end,
+    config = function(_, opts)
+      local api = require "nvim-tree.api"
+      vim.keymap.set("n", "<leader>e", api.tree.toggle, { desc = "Open NVtree" })
+      vim.keymap.set("n", "<leader>n", api.tree.focus, { desc = "Focus NVTree" })
+
+      require("nvim-tree").setup(opts)
     end,
   },
 
@@ -789,16 +867,19 @@ require("lazy").setup({
     -- change the command in the config to whatever the name of that colorscheme is.
     --
     -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    "folke/tokyonight.nvim",
+    "ellisonleao/gruvbox.nvim",
     priority = 1000, -- Make sure to load this before all the other start plugins.
     init = function()
       -- Load the colorscheme here.
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme "tokyonight-night"
+      vim.cmd.colorscheme "gruvbox"
+      -- vim.o.background = "dark"
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi "Comment gui=none"
+      vim.cmd.hi "Normal guibg=none"
+      vim.cmd.hi "Normal guibg=none"
     end,
   },
 
