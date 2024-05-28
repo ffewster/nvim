@@ -296,85 +296,12 @@ require("lazy").setup({
       }, { mode = "v" })
     end,
   },
-
   -- NVIM Tree Plugin
   {
     "nvim-tree/nvim-tree.lua",
     cmd = { "NvimTreeToggle", "NvimTreeFocus" },
     opts = function()
-      return {
-        filters = {
-          dotfiles = false,
-        },
-        disable_netrw = true,
-        hijack_netrw = true,
-        hijack_cursor = true,
-        hijack_unnamed_buffer_when_opening = false,
-        sync_root_with_cwd = true,
-        update_focused_file = {
-          enable = true,
-          update_root = false,
-        },
-        view = {
-          adaptive_size = false,
-          side = "left",
-          width = 30,
-          preserve_window_proportions = true,
-        },
-        git = {
-          enable = true,
-          ignore = true,
-        },
-        filesystem_watchers = {
-          enable = true,
-        },
-        actions = {
-          open_file = {
-            resize_window = true,
-          },
-        },
-        renderer = {
-          root_folder_label = false,
-          highlight_git = true,
-          highlight_opened_files = "none",
-
-          indent_markers = {
-            enable = true,
-          },
-
-          icons = {
-            show = {
-              file = true,
-              folder = true,
-              folder_arrow = true,
-              git = true,
-            },
-            glyphs = {
-              default = "󰈚",
-              symlink = "",
-              folder = {
-                default = "",
-                empty = "",
-                empty_open = "",
-                open = "",
-                symlink = "",
-                symlink_open = "",
-                arrow_open = "",
-                arrow_closed = "",
-              },
-              git = {
-                unstaged = "✗",
-                staged = "✓",
-                unmerged = "",
-                renamed = "➜",
-                untracked = "★",
-                deleted = "",
-                ignored = "◌",
-              },
-            },
-          },
-        },
-      }
+      require "kickstart.plugins.configs.nvim-tree"
     end,
     config = function(_, opts)
       local api = require "nvim-tree.api"
@@ -382,6 +309,14 @@ require("lazy").setup({
       vim.keymap.set("n", "<leader>n", api.tree.focus, { desc = "Focus NVTree" })
 
       require("nvim-tree").setup(opts)
+    end,
+  },
+
+  {
+    "https://codeberg.org/esensar/nvim-dev-container",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    config = function()
+      require("devcontainer").setup {}
     end,
   },
 
@@ -442,11 +377,14 @@ require("lazy").setup({
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
         --
-        -- defaults = {
-        --   mappings = {
-        --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-        --   },
-        -- },
+        defaults = {
+          file_ignore_patterns = {
+            "node_modules",
+          },
+          --mappings = {
+          --i = { ['<c-enter>'] = 'to_fuzzy_refine' },
+          --},
+        },
         -- pickers = {}
         extensions = {
           ["ui-select"] = {
@@ -932,7 +870,18 @@ require("lazy").setup({
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     opts = {
-      ensure_installed = { "bash", "c", "diff", "html", "lua", "luadoc", "markdown", "vim", "vimdoc" },
+      ensure_installed = {
+        "bash",
+        "c",
+        "diff",
+        "html",
+        "lua",
+        "jsonc",
+        "luadoc",
+        "markdown",
+        "vim",
+        "vimdoc",
+      },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
