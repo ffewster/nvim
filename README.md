@@ -7,3 +7,5 @@ To use this configration, clone this repository to your `~/.config/nvim` directo
 ```
 
 Ensure you backup your existing configuration before doing this as it will be overwritten.
+
+Don't forget to install `ripgrep` as well...
