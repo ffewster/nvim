@@ -144,13 +144,16 @@ vim.opt.splitbelow = true
 --  See `:help 'list'`
 --  and `:help 'listchars'`
 vim.opt.list = true
-vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+vim.opt.listchars = { tab = "  ", trail = "·", nbsp = "␣" }
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = "split"
 
 -- Show which line your cursor is on
 vim.opt.cursorline = true
+
+-- Set line width
+vim.opt.textwidth = 100
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
@@ -437,7 +440,11 @@ require("lazy").setup({
           --i = { ['<c-enter>'] = 'to_fuzzy_refine' },
           --},
         },
-        -- pickers = {}
+        pickers = {
+          find_files = {
+            hidden = true,
+          },
+        },
         extensions = {
           ["ui-select"] = {
             require("telescope.themes").get_dropdown(),
@@ -852,20 +859,32 @@ require("lazy").setup({
     end,
   },
 
-  { -- You can easily change to a different colorscheme.
-    -- Change the name of the colorscheme plugin below, and then
-    -- change the command in the config to whatever the name of that colorscheme is.
-    --
-    -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-    "rose-pine/neovim",
-    priority = 1000, -- Make sure to load this before all the other start plugins.
-    init = function()
-      -- Load the colorscheme here.
-      -- Like many other themes, this one has different styles, and you could load
-      -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-      vim.cmd.colorscheme "rose-pine"
-      -- vim.o.background = "dark"
+  -- { -- You can easily change to a different colorscheme.
+  --   -- Change the name of the colorscheme plugin below, and then
+  --   -- change the command in the config to whatever the name of that colorscheme is.
+  --   --
+  --   -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
+  --   "rose-pine/neovim",
+  --   priority = 1000, -- Make sure to load this before all the other start plugins.
+  --   init = function()
+  --     -- Load the colorscheme here.
+  --     -- Like many other themes, this one has different styles, and you could load
+  --     -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
+  --     vim.cmd.colorscheme "rose-pine"
+  --     -- vim.o.background = "dark"
+  --
+  --     -- You can configure highlights by doing something like:
+  --     vim.cmd.hi "Comment gui=none"
+  --     vim.cmd.hi "Normal guibg=none"
+  --     vim.cmd.hi "Normal guibg=none"
+  --   end,
+  -- },
 
+  {
+    "rebelot/kanagawa.nvim",
+    priority = 1000,
+    init = function()
+      vim.cmd.colorscheme "kanagawa"
       -- You can configure highlights by doing something like:
       vim.cmd.hi "Comment gui=none"
       vim.cmd.hi "Normal guibg=none"
