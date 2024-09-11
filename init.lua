@@ -281,24 +281,29 @@ require("lazy").setup({
     "folke/which-key.nvim",
     event = "VimEnter", -- Sets the loading event to 'VimEnter'
     config = function() -- This is the function that runs, AFTER loading
-      require("which-key").setup()
-
-      -- Document existing key chains
-      require("which-key").register {
-        ["<leader>c"] = { name = "[C]ode", _ = "which_key_ignore" },
-        ["<leader>d"] = { name = "[D]ocument", _ = "which_key_ignore" },
-        ["<leader>r"] = { name = "[R]ename", _ = "which_key_ignore" },
-        ["<leader>s"] = { name = "[S]earch", _ = "which_key_ignore" },
-        ["<leader>w"] = { name = "[W]orkspace", _ = "which_key_ignore" },
-        ["<leader>t"] = { name = "[T]oggle", _ = "which_key_ignore" },
-        ["<leader>h"] = { name = "Git [H]unk", _ = "which_key_ignore" },
-      }
-      -- visual mode
-      require("which-key").register({
-        ["<leader>h"] = { "Git [H]unk" },
-      }, { mode = "v" })
+      local wk = require "which-key"
+      wk.setup()
+      wk.add({
+        { "<leader>c", group = "[C]ode" },
+        { "<leader>c_", hidden = true },
+        { "<leader>d", group = "[D]ocument" },
+        { "<leader>d_", hidden = true },
+        { "<leader>h", group = "Git [H]unk" },
+        { "<leader>h_", hidden = true },
+        { "<leader>r", group = "[R]ename" },
+        { "<leader>r_", hidden = true },
+        { "<leader>s", group = "[S]earch" },
+        { "<leader>s_", hidden = true },
+        { "<leader>t", group = "[T]oggle" },
+        { "<leader>t_", hidden = true },
+        { "<leader>w", group = "[W]orkspace" },
+        { "<leader>w_", hidden = true },
+      }, {
+        mode = { "n", "v" }, -- NORMAL and VISUAL mode
+      })
     end,
   },
+
   -- NVIM Tree Plugin
   {
     "nvim-tree/nvim-tree.lua",
@@ -308,36 +313,17 @@ require("lazy").setup({
     end,
     config = function(_, opts)
       local api = require "nvim-tree.api"
-      vim.keymap.set("n", "<leader>e", api.tree.toggle, { desc = "Open NVtree" })
+
+      local toggle_tree = function()
+        api.tree.toggle()
+        vim.opt.relativenumber = true -- Use relative line numbers
+      end
+
+      vim.keymap.set("n", "<leader>e", toggle_tree, { desc = "Open NVtree" })
+      -- vim.keymap.set("n", "<leader>e", api.tree.toggle, { desc = "Open NVtree" })
       vim.keymap.set("n", "<leader>n", api.tree.focus, { desc = "Focus NVTree" })
 
       require("nvim-tree").setup(opts)
-    end,
-  },
-
-  {
-    "https://codeberg.org/esensar/nvim-dev-container",
-    dependencies = "nvim-treesitter/nvim-treesitter",
-    config = function()
-      require("devcontainer").setup {}
-    end,
-  },
-
-  {
-    "numToStr/Comment.nvim",
-    config = function(_, opts)
-      require("Comment").setup(opts)
-
-      vim.keymap.set("n", "<leader>/", function()
-        require("Comment.api").toggle.linewise.current()
-      end, { desc = "comment toggle" })
-
-      vim.keymap.set(
-        "v",
-        "<leader>/",
-        "<ESC><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>",
-        { desc = "comment toggle" }
-      )
     end,
   },
 
@@ -347,31 +333,6 @@ require("lazy").setup({
     config = true,
     -- use opts = {} for passing setup options
     -- this is equalent to setup({}) function
-  },
-
-  {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    event = "InsertEnter",
-    config = function()
-      require("copilot").setup {
-        suggestion = {
-          enabled = true,
-          auto_trigger = true,
-          keymap = {
-            accept = "<M-l>",
-          },
-        },
-        panel = {
-          enabled = true,
-          auto_refresh = true,
-        },
-        filetypes = {
-          ["*"] = true,
-          typescript = true,
-        },
-      }
-    end,
   },
 
   -- NOTE: Plugins can specify dependencies.
@@ -859,62 +820,6 @@ require("lazy").setup({
     end,
   },
 
-  -- { -- You can easily change to a different colorscheme.
-  --   -- Change the name of the colorscheme plugin below, and then
-  --   -- change the command in the config to whatever the name of that colorscheme is.
-  --   --
-  --   -- If you want to see what colorschemes are already installed, you can use `:Telescope colorscheme`.
-  --   "rose-pine/neovim",
-  --   priority = 1000, -- Make sure to load this before all the other start plugins.
-  --   init = function()
-  --     -- Load the colorscheme here.
-  --     -- Like many other themes, this one has different styles, and you could load
-  --     -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
-  --     vim.cmd.colorscheme "rose-pine"
-  --     -- vim.o.background = "dark"
-  --
-  --     -- You can configure highlights by doing something like:
-  --     vim.cmd.hi "Comment gui=none"
-  --     vim.cmd.hi "Normal guibg=none"
-  --     vim.cmd.hi "Normal guibg=none"
-  --   end,
-  -- },
-
-  -- {
-  --   "rebelot/kanagawa.nvim",
-  --   priority = 1000,
-  --   init = function()
-  --     vim.cmd.colorscheme "kanagawa"
-  --     -- You can configure highlights by doing something like:
-  --     vim.cmd.hi "Comment gui=none"
-  --     vim.cmd.hi "Normal guibg=none"
-  --     vim.cmd.hi "Normal guibg=none"
-  --   end,
-  -- },
-  -- {
-  --   "rose-pine/neovim",
-  --   priority = 1000,
-  --   init = function()
-  --     vim.cmd.colorscheme "rose-pine"
-  --     -- You can configure highlights by doing something like:
-  --     vim.cmd.hi "Comment gui=none"
-  --     vim.cmd.hi "Normal guibg=none"
-  --     vim.cmd.hi "Normal guibg=none"
-  --   end,
-  -- },
-  {
-    "AlexvZyl/nordic.nvim",
-    priority = 1000,
-    lazy = false,
-    init = function()
-      vim.cmd.colorscheme "nordic"
-      -- You can configure highlights by doing something like:
-      -- vim.cmd.hi "Comment gui=none"
-      -- vim.cmd.hi "Normal guibg=none"
-      -- vim.cmd.hi "Normal guibg=none"
-    end,
-  },
-
   -- Highlight todo, notes, etc in comments
   {
     "folke/todo-comments.nvim",
@@ -1025,7 +930,7 @@ require("lazy").setup({
   --
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
-  -- { import = 'custom.plugins' },
+  { import = "custom.plugins" },
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
