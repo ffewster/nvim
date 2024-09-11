@@ -1,5 +1,5 @@
 return {
-  filters = {
+  filter = {
     dotfiles = false,
   },
   disable_netrw = true,
@@ -12,14 +12,16 @@ return {
     update_root = false,
   },
   view = {
+    number = true,
+    relativenumber = true,
+    side = "right",
     adaptive_size = false,
-    side = "left",
     width = 30,
     preserve_window_proportions = true,
   },
   git = {
     enable = true,
-    ignore = true,
+    ignore = false,
   },
   filesystem_watchers = {
     enable = true,
