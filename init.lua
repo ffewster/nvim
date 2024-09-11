@@ -880,15 +880,38 @@ require("lazy").setup({
   --   end,
   -- },
 
+  -- {
+  --   "rebelot/kanagawa.nvim",
+  --   priority = 1000,
+  --   init = function()
+  --     vim.cmd.colorscheme "kanagawa"
+  --     -- You can configure highlights by doing something like:
+  --     vim.cmd.hi "Comment gui=none"
+  --     vim.cmd.hi "Normal guibg=none"
+  --     vim.cmd.hi "Normal guibg=none"
+  --   end,
+  -- },
+  -- {
+  --   "rose-pine/neovim",
+  --   priority = 1000,
+  --   init = function()
+  --     vim.cmd.colorscheme "rose-pine"
+  --     -- You can configure highlights by doing something like:
+  --     vim.cmd.hi "Comment gui=none"
+  --     vim.cmd.hi "Normal guibg=none"
+  --     vim.cmd.hi "Normal guibg=none"
+  --   end,
+  -- },
   {
-    "rebelot/kanagawa.nvim",
+    "AlexvZyl/nordic.nvim",
     priority = 1000,
+    lazy = false,
     init = function()
-      vim.cmd.colorscheme "kanagawa"
+      vim.cmd.colorscheme "nordic"
       -- You can configure highlights by doing something like:
-      vim.cmd.hi "Comment gui=none"
-      vim.cmd.hi "Normal guibg=none"
-      vim.cmd.hi "Normal guibg=none"
+      -- vim.cmd.hi "Comment gui=none"
+      -- vim.cmd.hi "Normal guibg=none"
+      -- vim.cmd.hi "Normal guibg=none"
     end,
   },
 
