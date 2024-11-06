@@ -1,5 +1,5 @@
 return {
-  filter = {
+  filters = {
     dotfiles = false,
   },
   disable_netrw = true,
@@ -15,7 +15,7 @@ return {
     number = true,
     relativenumber = true,
     side = "right",
-    adaptive_size = false,
+    adaptive_size = true,
     width = 30,
     preserve_window_proportions = true,
   },

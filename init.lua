@@ -309,7 +309,7 @@ require("lazy").setup({
     "nvim-tree/nvim-tree.lua",
     cmd = { "NvimTreeToggle", "NvimTreeFocus" },
     opts = function()
-      require "kickstart.plugins.configs.nvim-tree"
+      return require "kickstart.plugins.configs.nvim-tree"
     end,
     config = function(_, opts)
       local api = require "nvim-tree.api"
