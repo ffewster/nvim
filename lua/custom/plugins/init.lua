@@ -76,7 +76,7 @@ return {
           kw = "#fe5e58",
           identifier = "#b1b1b1",
           type = "#a1a1a1",
-          search_highlight = "#1bfd9c",
+          search_highlight = "#fdd41b",
           operator = "#1bfd9c",
           bracket = "#e6e6e6",
           preprocessor = "#4b8902",
