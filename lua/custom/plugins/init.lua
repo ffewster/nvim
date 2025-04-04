@@ -180,6 +180,7 @@ return {
     init = function()
       vim.g.barbar_auto_setup = false
       vim.api.nvim_set_keymap("n", "<Tab>", "<Cmd>BufferNext<CR>", { noremap = true, silent = true })
+      vim.api.nvim_set_keymap("n", "<S-Tab>", "<Cmd>BufferPrevious<CR>", { noremap = true, silent = true })
     end,
     opts = {
       -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
