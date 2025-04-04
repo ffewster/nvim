@@ -62,12 +62,12 @@ return {
     lazy = false,
     init = function()
       require("darkvoid").setup {
-        glow = false,
+        glow = true,
         transparent = true,
         colors = {
           fg = "#c0c0c0",
           bg = "#1c1c1c",
-          cursor = "#bdfe58",
+          cursor = "#fdd41b",
           line_nr = "#404040",
           visual = "#303030",
           comment = "#585858",
@@ -97,8 +97,8 @@ return {
           eob = "#3c3c3c",
 
           -- Telescope specific colors
-          border = "#585858",
-          title = "#bdfe58",
+          border = "#fe5e58",
+          title = "#ffffff",
 
           -- bufferline specific colors
           bufferline_selection = "#1bfd9c",
@@ -170,4 +170,25 @@ return {
       )
     end,
   },
+
+  {
+    "romgrk/barbar.nvim",
+    dependencies = {
+      "lewis6991/gitsigns.nvim", -- OPTIONAL: for git status
+      "nvim-tree/nvim-web-devicons", -- OPTIONAL: for file icons
+    },
+    init = function()
+      vim.g.barbar_auto_setup = false
+      vim.api.nvim_set_keymap("n", "<Tab>", "<Cmd>BufferNext<CR>", { noremap = true, silent = true })
+    end,
+    opts = {
+      -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
+      -- animation = true,
+      -- insert_at_start = true,
+      -- …etc.
+    },
+    version = "^1.0.0", -- optional: only update when a new 1.x version is released
+  },
+
+  -- See Commands section for default commands if you want to lazy load on them
 }
