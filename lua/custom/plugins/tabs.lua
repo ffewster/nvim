@@ -11,7 +11,9 @@ return {
       vim.g.barbar_auto_setup = false
       map("n", "<Tab>", "<Cmd>BufferNext<CR>", opts)
       map("n", "<S-Tab>", "<Cmd>BufferPrevious<CR>", opts)
-      map("n", "<leader>x", "<Cmd>BufferClose<CR>", opts)
+      map("n", "<leader>xx", "<Cmd>BufferClose<CR>", opts)
+      map("n", "<leader>xl", "<Cmd>BufferCloseBuffersRight<CR>", opts)
+      map("n", "<leader>xh", "<Cmd>BufferCloseBuffersLeft<CR>", opts)
     end,
     opts = {
       -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:

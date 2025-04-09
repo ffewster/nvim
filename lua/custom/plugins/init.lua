@@ -10,5 +10,6 @@ return vim.tbl_deep_extend(
   require "custom.plugins.copilot",
   require "custom.plugins.devcontainer",
   require "custom.plugins.tabs",
-  require "custom.plugins.themes"
+  require "custom.plugins.themes",
+  require "custom.plugins.treesitter"
 )
