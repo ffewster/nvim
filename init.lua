@@ -155,6 +155,8 @@ vim.opt.cursorline = true
 -- Set line width
 vim.opt.textwidth = 100
 
+vim.opt.guicursor = "n-v-c-i:block"
+
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
 
