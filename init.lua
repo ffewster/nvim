@@ -666,7 +666,7 @@ require("lazy").setup({
           "docker-compose-language-service",
           "yaml-language-server",
           "eslint-lsp"
-        }
+        },
         handlers = {
           function(server_name)
             local server = servers[server_name] or {}
