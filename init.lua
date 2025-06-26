@@ -664,7 +664,11 @@ require("lazy").setup({
           "ts_ls",
           "biome",
           "docker_compose_language_service",
-          "yaml_ls",
+          "dockerls",
+          "graphql",
+          "jsonls",
+          "sqlls",
+          "yamlls",
           "eslint",
           "bashls",
         },
@@ -675,6 +679,11 @@ require("lazy").setup({
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for tsserver)
             server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+
+            if server_name == "yamlls" then
+              server.settings = require "custom.lspconfigs.yamlls"
+            end
+
             require("lspconfig")[server_name].setup(server)
           end,
         },
