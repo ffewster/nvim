@@ -661,11 +661,12 @@ require("lazy").setup({
 
       require("mason-lspconfig").setup {
         ensure_installed = {
-          "typescript-language-server",
+          "ts_ls",
           "biome",
-          "docker-compose-language-service",
-          "yaml-language-server",
-          "eslint-lsp"
+          "docker_compose_language_service",
+          "yaml_ls",
+          "eslint",
+          "bashls",
         },
         handlers = {
           function(server_name)
